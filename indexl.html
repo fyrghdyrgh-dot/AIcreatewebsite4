@@ -1,0 +1,930 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI 工具导航站｜深色极简</title>
+  <meta name="description" content="深色极简 AI 工具导航站：分类、搜索、收藏、广告位、引流 CTA，一页可运行。" />
+  <meta property="og:title" content="AI 工具导航站｜深色极简" />
+  <meta property="og:description" content="分类、搜索、收藏、广告位、引流 CTA，一页可运行。" />
+  <meta property="og:type" content="website" />
+  <style>
+    :root{
+      --bg:#0b0f18;
+      --panel:#0f172a;
+      --panel2:#0b1222;
+      --text:#e5e7eb;
+      --muted:#94a3b8;
+      --line:rgba(148,163,184,.18);
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --accent:#7C3AED;
+      --accent2:#a78bfa;
+      --good:#22c55e;
+      --warn:#f59e0b;
+      --radius:12px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(124,58,237,.22), transparent 60%),
+        radial-gradient(900px 500px at 100% 0%, rgba(167,139,250,.14), transparent 55%),
+        radial-gradient(900px 500px at 0% 100%, rgba(59,130,246,.10), transparent 55%),
+        var(--bg);
+      color:var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+      line-height:1.5;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1180px;margin:0 auto;padding:20px}
+    .topbar{
+      position:sticky;top:0;z-index:20;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(to bottom, rgba(11,15,24,.92), rgba(11,15,24,.70));
+      border-bottom:1px solid var(--line);
+    }
+    .topbar-inner{display:flex;align-items:center;gap:14px;justify-content:space-between;padding:14px 20px;max-width:1180px;margin:0 auto}
+    .brand{display:flex;align-items:center;gap:10px;min-width:240px}
+    .logo{
+      width:34px;height:34px;border-radius:10px;
+      background: radial-gradient(12px 12px at 30% 30%, rgba(255,255,255,.35), transparent 60%),
+                  linear-gradient(135deg, rgba(124,58,237,1), rgba(59,130,246,.75));
+      box-shadow: 0 10px 20px rgba(124,58,237,.22);
+    }
+    .brand-title{font-weight:700;letter-spacing:.2px}
+    .brand-sub{font-size:12px;color:var(--muted);margin-top:1px}
+    .brand-text{display:flex;flex-direction:column;line-height:1.1}
+    .search{
+      flex:1;display:flex;align-items:center;gap:10px;max-width:520px;
+      background: rgba(15,23,42,.65);
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:10px 14px;
+    }
+    .search svg{opacity:.75}
+    .search input{
+      flex:1;
+      border:0;outline:0;background:transparent;color:var(--text);
+      font-size:14px;
+    }
+    .search input::placeholder{color:rgba(148,163,184,.75)}
+    .actions{display:flex;align-items:center;gap:10px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      border:1px solid var(--line);
+      background: rgba(15,23,42,.65);
+      color:var(--text);
+      border-radius:999px;
+      padding:10px 14px;
+      font-size:13px;
+      cursor:pointer;
+      user-select:none;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(167,139,250,.35)}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(124,58,237,1), rgba(99,102,241,.95));
+      border-color: rgba(124,58,237,.55);
+    }
+    .btn.ghost{background:transparent}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:7px 10px;border-radius:999px;
+      background: rgba(15,23,42,.55);
+      border:1px solid var(--line);
+      font-size:12px;color:rgba(226,232,240,.9);
+    }
+    .pill b{color:var(--accent2)}
+    .layout{display:grid;grid-template-columns: 1fr 320px;gap:18px;margin-top:18px}
+    .panel{
+      background: rgba(15,23,42,.60);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .panel.pad{padding:14px}
+    .hero{
+      display:flex;align-items:flex-start;justify-content:space-between;gap:14px;
+      padding:16px 16px 0;
+    }
+    .hero h1{font-size:18px;margin:0}
+    .hero p{margin:6px 0 0;color:var(--muted);font-size:13px}
+    .tabs{
+      display:flex;flex-wrap:wrap;gap:8px;
+      padding:12px 16px 14px;
+      border-top:1px solid var(--line);
+    }
+    .tab{
+      padding:8px 10px;border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(11,18,34,.55);
+      color: rgba(226,232,240,.92);
+      font-size:12px;
+      cursor:pointer;
+      transition: background .12s ease, border-color .12s ease, transform .12s ease;
+    }
+    .tab:hover{transform: translateY(-1px); border-color: rgba(167,139,250,.35)}
+    .tab.active{
+      background: rgba(124,58,237,.18);
+      border-color: rgba(124,58,237,.45);
+      color: #efeaff;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:12px;
+      padding:14px 16px 16px;
+      border-top:1px solid var(--line);
+    }
+    .card{
+      border:1px solid var(--line);
+      background: rgba(11,18,34,.62);
+      border-radius: var(--radius);
+      padding:12px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      min-height: 150px;
+      transition: transform .12s ease, border-color .12s ease;
+    }
+    .card:hover{transform: translateY(-2px); border-color: rgba(167,139,250,.35)}
+    .card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+    .card-title{font-weight:700;font-size:13.5px;margin:0}
+    .card-desc{margin:0;color:var(--muted);font-size:12.5px}
+    .tags{display:flex;flex-wrap:wrap;gap:6px}
+    .tag{
+      font-size:11px;
+      padding:4px 8px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(15,23,42,.55);
+      color: rgba(226,232,240,.9);
+    }
+    .card-actions{display:flex;align-items:center;gap:8px;margin-top:auto}
+    .mini{
+      padding:8px 10px;border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(15,23,42,.55);
+      color: rgba(226,232,240,.95);
+      font-size:12px;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+    }
+    .mini.primary{
+      background: rgba(124,58,237,.18);
+      border-color: rgba(124,58,237,.40);
+    }
+    .mini:hover{border-color: rgba(167,139,250,.35)}
+    .star{
+      width:34px;height:34px;border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(15,23,42,.55);
+      cursor:pointer;
+      display:inline-flex;align-items:center;justify-content:center;
+    }
+    .star[aria-pressed="true"]{border-color: rgba(124,58,237,.55); background: rgba(124,58,237,.18)}
+    .muted{color:var(--muted)}
+    .rightcol{display:flex;flex-direction:column;gap:12px}
+    .ad{
+      border:1px dashed rgba(148,163,184,.35);
+      border-radius: var(--radius);
+      background: rgba(11,18,34,.35);
+      padding:12px;
+    }
+    .ad-top{margin:16px 0 0}
+    .ad-label{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px
+    }
+    .ad-label span{font-size:12px;color:rgba(226,232,240,.85)}
+    .badge{
+      font-size:11px;
+      padding:4px 8px;
+      border-radius:999px;
+      border:1px solid rgba(124,58,237,.45);
+      background: rgba(124,58,237,.16);
+      color: #efeaff;
+    }
+    .ad-slot{
+      border-radius: 10px;
+      background: rgba(15,23,42,.55);
+      border:1px solid var(--line);
+      padding:12px;
+      color: rgba(226,232,240,.9);
+      font-size:12.5px;
+      line-height:1.55;
+    }
+    .ad-slot b{color:var(--accent2)}
+    .stat{
+      display:flex;gap:10px;flex-wrap:wrap
+    }
+    .stat .pill{background: rgba(11,18,34,.45)}
+    .foot{
+      margin:18px 0 30px;
+      padding:14px 16px;
+      border-top:1px solid var(--line);
+      display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+    }
+    .foot a{color:rgba(226,232,240,.92)}
+    .foot a:hover{color:#fff}
+    .divider{width:1px;height:12px;background: var(--line)}
+    .toast{
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 18px;
+      background: rgba(2,6,23,.85);
+      border: 1px solid rgba(148,163,184,.25);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      color: rgba(226,232,240,.95);
+      box-shadow: var(--shadow);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+      z-index: 60;
+      max-width: calc(100vw - 24px);
+      text-align:center;
+    }
+    .toast.show{opacity:1; transform: translateX(-50%) translateY(-6px)}
+    .float-cta{
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 55;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      align-items:flex-end;
+    }
+    .fab{
+      border-radius: 999px;
+      padding: 12px 14px;
+      background: linear-gradient(135deg, rgba(124,58,237,1), rgba(99,102,241,.95));
+      color: white;
+      border: 1px solid rgba(124,58,237,.55);
+      box-shadow: 0 18px 40px rgba(124,58,237,.22);
+      cursor:pointer;
+      font-size: 13px;
+      display:inline-flex;align-items:center;gap:8px;
+      user-select:none;
+    }
+    .fab.secondary{
+      background: rgba(15,23,42,.80);
+      border-color: rgba(148,163,184,.25);
+      box-shadow: var(--shadow);
+    }
+    .modal{
+      position: fixed; inset: 0;
+      background: rgba(2,6,23,.65);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index: 80;
+      padding: 18px;
+    }
+    .modal.show{display:flex}
+    .dialog{
+      width: min(860px, 100%);
+      border-radius: 16px;
+      border: 1px solid rgba(148,163,184,.25);
+      background: rgba(15,23,42,.92);
+      box-shadow: 0 40px 90px rgba(0,0,0,.55);
+      overflow:hidden;
+    }
+    .dialog-head{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      padding: 14px 14px 12px;
+      border-bottom:1px solid rgba(148,163,184,.18);
+    }
+    .dialog-title{font-weight:700}
+    .dialog-body{
+      display:grid;grid-template-columns: 1.2fr .8fr;gap:14px;
+      padding: 14px;
+    }
+    .dialog p{margin:0 0 10px}
+    .qr{
+      border-radius: 14px;
+      border:1px solid rgba(148,163,184,.22);
+      background: rgba(11,18,34,.60);
+      padding: 12px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      align-items:center;
+      justify-content:center;
+      min-height: 260px;
+    }
+    .qr img{width:180px;height:180px;border-radius:12px;background:#fff}
+    .close{
+      width: 38px;height: 38px;border-radius: 999px;
+      border:1px solid rgba(148,163,184,.22);
+      background: rgba(11,18,34,.60);
+      color: rgba(226,232,240,.95);
+      cursor:pointer;
+    }
+    .kbd{font-size:11px;color:rgba(148,163,184,.9);border:1px solid rgba(148,163,184,.25);border-bottom-color:rgba(148,163,184,.35);padding:2px 6px;border-radius:6px}
+    .inline-ad{
+      grid-column: 1 / -1;
+      border-radius: var(--radius);
+      overflow:hidden;
+    }
+    @media (max-width: 980px){
+      .layout{grid-template-columns: 1fr}
+      .rightcol{order:-1}
+      .brand{min-width:0}
+      .search{max-width:none}
+    }
+    @media (max-width: 860px){
+      .grid{grid-template-columns: repeat(2, minmax(0, 1fr))}
+      .dialog-body{grid-template-columns: 1fr}
+      .qr{min-height:220px}
+    }
+    @media (max-width: 520px){
+      .topbar-inner{flex-wrap:wrap}
+      .brand{width:100%}
+      .actions{width:100%;justify-content:flex-end}
+      .grid{grid-template-columns: 1fr}
+      .float-cta{right: 12px; bottom: 12px}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="brand-text">
+          <div class="brand-title">AI 工具导航站</div>
+          <div class="brand-sub">分类 · 搜索 · 收藏 · 广告位 · 引流</div>
+        </div>
+      </div>
+
+      <div class="search" role="search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="2" opacity=".9"/>
+          <path d="M16.2 16.2 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".9"/>
+        </svg>
+        <input id="q" type="text" autocomplete="off" placeholder="搜索工具：名称 / 简介 / 标签…" />
+        <span class="pill" title="当前筛选"><b id="activeCat">全部</b><span id="count">0</span></span>
+      </div>
+
+      <div class="actions">
+        <button class="btn ghost" id="showFavs" data-event="nav_show_favs" type="button">只看收藏</button>
+        <button class="btn primary" id="submitTool" data-event="nav_submit_tool" type="button">提交工具</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="ad ad-top panel">
+      <div class="ad-label">
+        <span>顶部横幅</span>
+        <span class="badge">赞助</span>
+      </div>
+      <div class="ad-slot">
+        <div><b>广告位（可替换）</b></div>
+        <div class="muted">这里可放：推广文案 / 跳转链接 / 图片。建议尺寸：728×90 或自适应横幅。</div>
+        <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
+          <a class="mini primary" href="#" data-event="ad_top_click">了解更多</a>
+          <a class="mini" href="#" data-event="ad_top_contact">投放咨询</a>
+        </div>
+      </div>
+    </div>
+
+    <section class="layout">
+      <section class="panel" aria-label="工具列表">
+        <div class="hero">
+          <div>
+            <h1>按分类快速找到合适的工具</h1>
+            <p>支持实时搜索与收藏（本地保存）。广告位已预留，适合做引流站落地页。</p>
+          </div>
+          <div class="stat" aria-label="统计">
+            <span class="pill">分类 <b id="catCount">0</b></span>
+            <span class="pill">工具 <b id="toolCount">0</b></span>
+            <span class="pill">收藏 <b id="favCount">0</b></span>
+          </div>
+        </div>
+
+        <div class="tabs" id="tabs" role="tablist" aria-label="分类筛选"></div>
+        <div class="grid" id="grid" aria-live="polite"></div>
+
+        <div class="foot">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <span class="muted">© <span id="year"></span> AI 工具导航站</span>
+            <span class="divider" aria-hidden="true"></span>
+            <a href="#" id="openDisclaimer" data-event="open_disclaimer">免责声明</a>
+            <span class="divider" aria-hidden="true"></span>
+            <a href="#" id="openPrivacy" data-event="open_privacy">隐私政策</a>
+          </div>
+          <div class="muted">外链仅供参考，请自行甄别风险。</div>
+        </div>
+      </section>
+
+      <aside class="rightcol" aria-label="侧栏">
+        <section class="panel pad">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+            <div>
+              <div style="font-weight:700">快速引流</div>
+              <div class="muted" style="font-size:12px;margin-top:4px">把 CTA 替换成你的社群/资料包</div>
+            </div>
+            <span class="badge">转化</span>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+            <button class="mini primary" id="ctaJoin" data-event="cta_join" type="button">加入社群</button>
+            <button class="mini" id="ctaGift" data-event="cta_gift" type="button">领取资料</button>
+          </div>
+          <div class="muted" style="font-size:12px;margin-top:10px">
+            建议：在弹窗内放二维码、群规则、资料说明，并加“已添加/关闭”按钮。
+          </div>
+        </section>
+
+        <section class="ad panel">
+          <div class="ad-label">
+            <span>侧栏广告</span>
+            <span class="badge">赞助</span>
+          </div>
+          <div class="ad-slot">
+            <div><b>广告位（可替换）</b></div>
+            <div class="muted">建议尺寸：300×250。可放图片 + 链接，或联盟推广。</div>
+            <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
+              <a class="mini primary" href="#" data-event="ad_side_click">立即查看</a>
+              <a class="mini" href="#" data-event="ad_side_contact">合作投放</a>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel pad">
+          <div style="font-weight:700">运营建议</div>
+          <ul style="margin:10px 0 0 18px;padding:0;color:rgba(226,232,240,.92);font-size:12.5px;line-height:1.7">
+            <li>把“分类名”改成更贴近关键词的名称（更好做搜索流量）。</li>
+            <li>把工具卡片链接换成你的联盟/跳转页（统一统计）。</li>
+            <li>把“提交工具”改成表单/加群入口，提高收录效率。</li>
+            <li>广告位尽量显式标注“赞助”，提升信任与合规性。</li>
+          </ul>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <div class="float-cta">
+    <button class="fab" id="fabMain" data-event="fab_open" type="button">
+      <span>加入社群 / 领资料</span>
+      <span class="kbd">Ctrl K</span>
+    </button>
+    <button class="fab secondary" id="fabTop" data-event="fab_back_top" type="button">回到顶部</button>
+  </div>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="引流弹窗">
+    <div class="dialog">
+      <div class="dialog-head">
+        <div>
+          <div class="dialog-title" id="modalTitle">加入社群 / 领取资料</div>
+          <div class="muted" style="font-size:12px;margin-top:4px">把二维码与文案替换成你的真实内容</div>
+        </div>
+        <button class="close" id="closeModal" data-event="modal_close" type="button" aria-label="关闭">✕</button>
+      </div>
+      <div class="dialog-body">
+        <div>
+          <p style="font-weight:700;margin-bottom:8px">你将获得</p>
+          <ul style="margin:0 0 12px 18px;padding:0;color:rgba(226,232,240,.92);font-size:12.8px;line-height:1.7">
+            <li>AI 工具清单（按场景整理）</li>
+            <li>高转化提示词模板（可直接复制）</li>
+            <li>案例拆解与避坑清单</li>
+          </ul>
+          <p class="muted" style="font-size:12.5px;margin-bottom:12px">提示：建议在这里加入群规则/资料说明，提升转化质量。</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="mini primary" id="markDone" data-event="modal_done" type="button">我已获取</button>
+            <button class="mini" id="copyText" data-event="modal_copy" type="button">复制引导话术</button>
+          </div>
+        </div>
+        <div class="qr">
+          <img id="qrImg" alt="二维码占位图" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><rect width='100%25' height='100%25' fill='%23ffffff'/><rect x='16' y='16' width='188' height='188' fill='none' stroke='%23111' stroke-width='3'/><g fill='%23111' opacity='.92'><rect x='34' y='34' width='50' height='50'/><rect x='136' y='34' width='50' height='50'/><rect x='34' y='136' width='50' height='50'/><rect x='102' y='102' width='18' height='18'/><rect x='128' y='102' width='18' height='18'/><rect x='102' y='128' width='18' height='18'/><rect x='128' y='128' width='18' height='18'/><rect x='154' y='120' width='10' height='10'/><rect x='120' y='154' width='10' height='10'/><rect x='154' y='154' width='10' height='10'/></g><text x='110' y='214' text-anchor='middle' font-family='Arial' font-size='12' fill='%23555'>QR Placeholder</text></svg>" />
+          <div class="muted" style="font-size:12px;text-align:center">
+            扫码加入/领取<br/>（替换成你的真实二维码）
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const tools = [
+      { name: "ChatGPT", desc: "通用对话与写作助手，适合内容生成与问题解答。", url: "https://chat.openai.com", cat: "对话/助手", tags: ["写作","问答","通用"] },
+      { name: "Claude", desc: "长文本理解与总结表现突出，适合报告与资料整理。", url: "https://claude.ai", cat: "对话/助手", tags: ["总结","长文","分析"] },
+      { name: "Gemini", desc: "多模态能力强，适合搜索式问答与内容辅助。", url: "https://gemini.google.com", cat: "对话/助手", tags: ["多模态","问答","办公"] },
+      { name: "Perplexity", desc: "检索增强问答，适合快速查资料与引用。", url: "https://www.perplexity.ai", cat: "对话/助手", tags: ["检索","引用","快速"] },
+      { name: "Notion AI", desc: "知识库与写作结合，适合团队文档与 SOP。", url: "https://www.notion.so/product/ai", cat: "办公/知识库", tags: ["文档","SOP","协作"] },
+      { name: "飞书智能助手", desc: "协作办公场景更顺手，适合企业内部流程。", url: "https://www.feishu.cn", cat: "办公/知识库", tags: ["协作","会议","企业"] },
+      { name: "Gamma", desc: "一键生成演示文稿，适合汇报与路演。", url: "https://gamma.app", cat: "办公/知识库", tags: ["PPT","汇报","排版"] },
+      { name: "Tome", desc: "故事化演示与页面生成，适合营销与提案。", url: "https://tome.app", cat: "办公/知识库", tags: ["提案","演示","营销"] },
+
+      { name: "Midjourney", desc: "高质量图像生成，适合视觉风格探索。", url: "https://www.midjourney.com", cat: "图片生成", tags: ["图像","风格","创作"] },
+      { name: "Stable Diffusion", desc: "开源图像生成生态丰富，适合可控创作。", url: "https://stability.ai", cat: "图片生成", tags: ["开源","可控","模型"] },
+      { name: "Leonardo", desc: "面向素材与游戏美术的图像生成平台。", url: "https://leonardo.ai", cat: "图片生成", tags: ["素材","游戏","美术"] },
+      { name: "Canva", desc: "设计模板丰富，结合 AI 快速产出海报。", url: "https://www.canva.com", cat: "图片生成", tags: ["海报","模板","设计"] },
+      { name: "Remove.bg", desc: "一键抠图去背景，适合电商与素材制作。", url: "https://www.remove.bg", cat: "图片生成", tags: ["抠图","电商","素材"] },
+      { name: "Figma", desc: "协作设计工具，适合原型与 UI 产出。", url: "https://www.figma.com", cat: "设计/产品", tags: ["UI","原型","协作"] },
+
+      { name: "CapCut", desc: "短视频剪辑与模板，适合快速出片。", url: "https://www.capcut.com", cat: "视频/音频", tags: ["剪辑","模板","短视频"] },
+      { name: "Runway", desc: "视频生成与编辑，适合创意视频与特效。", url: "https://runwayml.com", cat: "视频/音频", tags: ["视频生成","特效","创意"] },
+      { name: "Descript", desc: "音视频文本化编辑，适合播客与口播。", url: "https://www.descript.com", cat: "视频/音频", tags: ["字幕","播客","口播"] },
+      { name: "ElevenLabs", desc: "高拟真配音与 TTS，适合配音与旁白。", url: "https://elevenlabs.io", cat: "视频/音频", tags: ["配音","TTS","旁白"] },
+      { name: "Adobe Podcast", desc: "语音增强与降噪，提升录音质量。", url: "https://podcast.adobe.com", cat: "视频/音频", tags: ["降噪","增强","录音"] },
+      { name: "AIVA", desc: "AI 作曲与配乐生成，适合短视频配乐。", url: "https://www.aiva.ai", cat: "视频/音频", tags: ["配乐","作曲","生成"] },
+
+      { name: "Jasper", desc: "营销文案写作，适合广告与落地页。", url: "https://www.jasper.ai", cat: "营销/文案", tags: ["文案","营销","广告"] },
+      { name: "Copy.ai", desc: "多场景文案模板，适合社媒与投放。", url: "https://www.copy.ai", cat: "营销/文案", tags: ["社媒","投放","模板"] },
+      { name: "Grammarly", desc: "英文润色与纠错，适合国际化内容。", url: "https://www.grammarly.com", cat: "营销/文案", tags: ["润色","英文","纠错"] },
+      { name: "QuillBot", desc: "改写与降重，适合多版本内容输出。", url: "https://quillbot.com", cat: "营销/文案", tags: ["改写","降重","写作"] },
+      { name: "Hemingway", desc: "可读性优化，适合提升内容清晰度。", url: "https://hemingwayapp.com", cat: "营销/文案", tags: ["可读性","简化","写作"] },
+      { name: "Ahrefs", desc: "SEO 分析与关键词研究，适合站点增长。", url: "https://ahrefs.com", cat: "营销/文案", tags: ["SEO","关键词","分析"] },
+
+      { name: "GitHub Copilot", desc: "代码补全与建议，提升开发效率。", url: "https://github.com/features/copilot", cat: "开发/效率", tags: ["代码","补全","IDE"] },
+      { name: "Cursor", desc: "AI 编程编辑器，适合代码改写与理解。", url: "https://www.cursor.com", cat: "开发/效率", tags: ["编辑器","改写","理解"] },
+      { name: "Postman", desc: "API 调试与协作，适合接口开发与测试。", url: "https://www.postman.com", cat: "开发/效率", tags: ["API","测试","协作"] },
+      { name: "Dify", desc: "应用编排与工作流，适合搭建 AI 应用。", url: "https://dify.ai", cat: "开发/效率", tags: ["工作流","应用","编排"] },
+      { name: "Zapier", desc: "自动化连接工具，适合无代码流程集成。", url: "https://zapier.com", cat: "开发/效率", tags: ["自动化","集成","无代码"] },
+      { name: "n8n", desc: "开源自动化工作流，适合自部署与扩展。", url: "https://n8n.io", cat: "开发/效率", tags: ["开源","自动化","自部署"] },
+
+      { name: "Whimsical", desc: "流程图与线框图，适合产品梳理。", url: "https://whimsical.com", cat: "设计/产品", tags: ["流程图","线框","协作"] },
+      { name: "Miro", desc: "在线白板协作，适合头脑风暴与培训。", url: "https://miro.com", cat: "设计/产品", tags: ["白板","协作","共创"] },
+      { name: "Excalidraw", desc: "手绘风图表，适合快速表达与分享。", url: "https://excalidraw.com", cat: "设计/产品", tags: ["图表","手绘","快速"] },
+      { name: "Framer", desc: "高质量落地页与交互，适合营销页面。", url: "https://www.framer.com", cat: "设计/产品", tags: ["落地页","交互","发布"] },
+      { name: "Webflow", desc: "可视化建站，适合无代码搭建页面。", url: "https://webflow.com", cat: "设计/产品", tags: ["建站","无代码","发布"] },
+      { name: "Tally", desc: "轻量表单，适合收集线索与报名。", url: "https://tally.so", cat: "设计/产品", tags: ["表单","线索","报名"] },
+
+      { name: "Google Sheets", desc: "表格与数据整理，适合轻量数据运营。", url: "https://docs.google.com/spreadsheets", cat: "数据/分析", tags: ["表格","整理","运营"] },
+      { name: "Airtable", desc: "表格数据库，适合内容库与轻应用。", url: "https://airtable.com", cat: "数据/分析", tags: ["数据库","内容库","协作"] },
+      { name: "Metabase", desc: "BI 看板与查询，适合数据可视化。", url: "https://www.metabase.com", cat: "数据/分析", tags: ["BI","看板","查询"] },
+      { name: "Looker Studio", desc: "数据报表与可视化，适合投放复盘。", url: "https://lookerstudio.google.com", cat: "数据/分析", tags: ["报表","可视化","复盘"] },
+      { name: "Hotjar", desc: "用户行为洞察，适合落地页优化。", url: "https://www.hotjar.com", cat: "数据/分析", tags: ["热力图","行为","优化"] },
+      { name: "GA4", desc: "站点统计分析，适合基础数据监测。", url: "https://analytics.google.com", cat: "数据/分析", tags: ["统计","转化","监测"] }
+    ];
+
+    const state = {
+      activeCat: "全部",
+      q: "",
+      favOnly: false,
+      favs: new Set()
+    };
+
+    const els = {
+      q: document.getElementById("q"),
+      tabs: document.getElementById("tabs"),
+      grid: document.getElementById("grid"),
+      activeCat: document.getElementById("activeCat"),
+      count: document.getElementById("count"),
+      catCount: document.getElementById("catCount"),
+      toolCount: document.getElementById("toolCount"),
+      favCount: document.getElementById("favCount"),
+      showFavs: document.getElementById("showFavs"),
+      year: document.getElementById("year"),
+      toast: document.getElementById("toast"),
+      modal: document.getElementById("modal"),
+      modalTitle: document.getElementById("modalTitle"),
+      closeModal: document.getElementById("closeModal"),
+      fabMain: document.getElementById("fabMain"),
+      fabTop: document.getElementById("fabTop"),
+      ctaJoin: document.getElementById("ctaJoin"),
+      ctaGift: document.getElementById("ctaGift"),
+      submitTool: document.getElementById("submitTool"),
+      markDone: document.getElementById("markDone"),
+      copyText: document.getElementById("copyText"),
+      openDisclaimer: document.getElementById("openDisclaimer"),
+      openPrivacy: document.getElementById("openPrivacy")
+    };
+
+    const LS_KEY = "aiNav:favs";
+
+    function getCategories(items){
+      const set = new Set(items.map(x => x.cat));
+      return ["全部", ...Array.from(set).sort((a,b) => a.localeCompare(b, "zh-Hans-CN"))];
+    }
+
+    function normalize(s){return (s || "").toLowerCase().trim();}
+
+    function matchesQuery(item, q){
+      if(!q) return true;
+      const hay = [
+        item.name,
+        item.desc,
+        item.cat,
+        ...(item.tags || [])
+      ].join(" ").toLowerCase();
+      return hay.includes(q);
+    }
+
+    function shouldShow(item){
+      if(state.activeCat !== "全部" && item.cat !== state.activeCat) return false;
+      if(state.favOnly && !state.favs.has(item.name)) return false;
+      if(!matchesQuery(item, state.q)) return false;
+      return true;
+    }
+
+    function escapeHtml(s){
+      return String(s)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function toast(msg){
+      els.toast.textContent = msg;
+      els.toast.classList.add("show");
+      clearTimeout(toast._t);
+      toast._t = setTimeout(() => els.toast.classList.remove("show"), 1600);
+    }
+
+    function track(el){
+      const ev = el?.dataset?.event;
+      if(!ev) return;
+      window.__events = window.__events || [];
+      window.__events.push({ event: ev, ts: Date.now() });
+    }
+
+    function saveFavs(){
+      localStorage.setItem(LS_KEY, JSON.stringify(Array.from(state.favs)));
+      updateCounts();
+    }
+
+    function loadFavs(){
+      try{
+        const raw = localStorage.getItem(LS_KEY);
+        if(!raw) return;
+        const arr = JSON.parse(raw);
+        if(Array.isArray(arr)) state.favs = new Set(arr);
+      }catch(_){}
+    }
+
+    function updateCounts(filteredCount){
+      const categories = getCategories(tools);
+      els.catCount.textContent = String(categories.length - 1);
+      els.toolCount.textContent = String(tools.length);
+      els.favCount.textContent = String(state.favs.size);
+      if(typeof filteredCount === "number") els.count.textContent = String(filteredCount);
+    }
+
+    function renderTabs(){
+      const categories = getCategories(tools);
+      els.tabs.innerHTML = categories.map(cat => {
+        const active = cat === state.activeCat ? "active" : "";
+        return `<button class="tab ${active}" type="button" role="tab" aria-selected="${active ? "true" : "false"}" data-cat="${escapeHtml(cat)}" data-event="tab_${escapeHtml(cat)}">${escapeHtml(cat)}</button>`;
+      }).join("");
+    }
+
+    function renderInlineAd(){
+      return `
+        <div class="ad inline-ad panel" role="region" aria-label="信息流广告">
+          <div class="ad-label" style="padding:12px 12px 0">
+            <span>信息流广告</span>
+            <span class="badge">赞助</span>
+          </div>
+          <div class="ad-slot" style="margin:12px">
+            <div><b>广告位（可替换）</b></div>
+            <div class="muted">这里可插入“赞助推荐”卡片：适合放联盟产品/课程/社群。</div>
+            <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
+              <a class="mini primary" href="#" data-event="ad_feed_click">查看详情</a>
+              <a class="mini" href="#" data-event="ad_feed_contact">合作投放</a>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderGrid(){
+      const list = tools.filter(shouldShow);
+      els.activeCat.textContent = state.activeCat;
+      updateCounts(list.length);
+
+      if(list.length === 0){
+        els.grid.innerHTML = `
+          <div class="card" style="grid-column:1 / -1">
+            <div class="card-title">没有匹配结果</div>
+            <p class="card-desc">尝试更换分类或减少关键词，或取消“只看收藏”。</p>
+            <div class="card-actions">
+              <button class="mini primary" type="button" id="resetFilters" data-event="reset_filters">重置筛选</button>
+              <button class="mini" type="button" id="openCtaEmpty" data-event="cta_from_empty">加入社群/领资料</button>
+            </div>
+          </div>
+        `;
+        document.getElementById("resetFilters").addEventListener("click", (e) => {
+          track(e.currentTarget);
+          state.activeCat = "全部";
+          state.q = "";
+          state.favOnly = false;
+          els.q.value = "";
+          els.showFavs.textContent = "只看收藏";
+          renderTabs();
+          renderGrid();
+          toast("已重置筛选");
+        });
+        document.getElementById("openCtaEmpty").addEventListener("click", (e) => {
+          track(e.currentTarget);
+          openModal("加入社群 / 领取资料");
+        });
+        return;
+      }
+
+      const nodes = [];
+      const insertAt = Math.min(6, list.length);
+      list.forEach((item, idx) => {
+        if(idx === insertAt) nodes.push(renderInlineAd());
+        const fav = state.favs.has(item.name);
+        nodes.push(`
+          <article class="card" data-name="${escapeHtml(item.name)}" data-cat="${escapeHtml(item.cat)}">
+            <div class="card-head">
+              <div>
+                <h3 class="card-title">${escapeHtml(item.name)}</h3>
+                <p class="card-desc">${escapeHtml(item.desc)}</p>
+              </div>
+              <button class="star" type="button" aria-label="收藏" aria-pressed="${fav ? "true" : "false"}" data-fav="${escapeHtml(item.name)}" data-event="fav_toggle">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 17.3 6.2 20.6l1.1-6.6L2.6 9.7l6.6-1 2.8-6 2.8 6 6.6 1-4.7 4.3 1.1 6.6L12 17.3Z" stroke="currentColor" stroke-width="2" opacity="${fav ? "1" : ".7"}" fill="${fav ? "rgba(124,58,237,.35)" : "transparent"}"/>
+                </svg>
+              </button>
+            </div>
+            <div class="tags">
+              <span class="tag">${escapeHtml(item.cat)}</span>
+              ${(item.tags || []).slice(0,3).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join("")}
+            </div>
+            <div class="card-actions">
+              <a class="mini primary" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" data-event="tool_open">访问</a>
+              <button class="mini" type="button" data-event="tool_copy" data-copy="${escapeHtml(item.name)}｜${escapeHtml(item.url)}">复制链接</button>
+            </div>
+          </article>
+        `);
+      });
+      els.grid.innerHTML = nodes.join("");
+
+      els.grid.querySelectorAll("[data-fav]").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          track(e.currentTarget);
+          const name = e.currentTarget.getAttribute("data-fav");
+          if(!name) return;
+          if(state.favs.has(name)) state.favs.delete(name);
+          else state.favs.add(name);
+          saveFavs();
+          renderGrid();
+          toast(state.favs.has(name) ? "已收藏" : "已取消收藏");
+        });
+      });
+
+      els.grid.querySelectorAll("[data-copy]").forEach(btn => {
+        btn.addEventListener("click", async (e) => {
+          track(e.currentTarget);
+          const text = e.currentTarget.getAttribute("data-copy") || "";
+          try{
+            await navigator.clipboard.writeText(text);
+            toast("已复制到剪贴板");
+          }catch(_){
+            const ta = document.createElement("textarea");
+            ta.value = text;
+            ta.style.position = "fixed";
+            ta.style.left = "-9999px";
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            ta.remove();
+            toast("已复制到剪贴板");
+          }
+        });
+      });
+
+      els.grid.querySelectorAll('a[data-event="tool_open"]').forEach(a => {
+        a.addEventListener("click", (e) => track(e.currentTarget));
+      });
+
+      els.grid.querySelectorAll('[data-event^="ad_"]').forEach(a => {
+        a.addEventListener("click", (e) => track(e.currentTarget));
+      });
+    }
+
+    function setActiveCat(cat){
+      state.activeCat = cat;
+      renderTabs();
+      renderGrid();
+    }
+
+    function openModal(title){
+      els.modalTitle.textContent = title;
+      els.modal.classList.add("show");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal(){
+      els.modal.classList.remove("show");
+      document.body.style.overflow = "";
+    }
+
+    function init(){
+      loadFavs();
+      els.year.textContent = String(new Date().getFullYear());
+      renderTabs();
+      renderGrid();
+      updateCounts(tools.length);
+
+      els.q.addEventListener("input", () => {
+        state.q = normalize(els.q.value);
+        renderGrid();
+      });
+
+      els.tabs.addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-cat]");
+        if(!btn) return;
+        track(btn);
+        const cat = btn.getAttribute("data-cat");
+        if(!cat) return;
+        setActiveCat(cat);
+      });
+
+      els.showFavs.addEventListener("click", (e) => {
+        track(e.currentTarget);
+        state.favOnly = !state.favOnly;
+        els.showFavs.textContent = state.favOnly ? "显示全部" : "只看收藏";
+        renderGrid();
+        toast(state.favOnly ? "仅显示收藏" : "显示全部");
+      });
+
+      function onCtaClick(btn, title){
+        btn.addEventListener("click", (e) => {
+          track(e.currentTarget);
+          openModal(title);
+        });
+      }
+      onCtaClick(els.fabMain, "加入社群 / 领取资料");
+      onCtaClick(els.ctaJoin, "加入社群");
+      onCtaClick(els.ctaGift, "领取资料");
+
+      els.fabTop.addEventListener("click", (e) => {
+        track(e.currentTarget);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      els.closeModal.addEventListener("click", (e) => { track(e.currentTarget); closeModal(); });
+      els.modal.addEventListener("click", (e) => {
+        if(e.target === els.modal){ track({ dataset:{ event:"modal_backdrop" } }); closeModal(); }
+      });
+      window.addEventListener("keydown", (e) => {
+        if(e.key === "Escape" && els.modal.classList.contains("show")) closeModal();
+        if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k"){
+          e.preventDefault();
+          track(els.fabMain);
+          openModal("加入社群 / 领取资料");
+        }
+      });
+
+      els.markDone.addEventListener("click", (e) => {
+        track(e.currentTarget);
+        closeModal();
+        toast("已记录");
+      });
+
+      els.copyText.addEventListener("click", async (e) => {
+        track(e.currentTarget);
+        const text = "你好，我想加入社群/领取资料包：AI 工具清单 + 高转化提示词模板 + 案例拆解。麻烦发我获取方式。";
+        try{
+          await navigator.clipboard.writeText(text);
+          toast("引导话术已复制");
+        }catch(_){
+          toast("复制失败，请手动复制");
+        }
+      });
+
+      els.submitTool.addEventListener("click", (e) => {
+        track(e.currentTarget);
+        openModal("提交工具 / 商务合作");
+      });
+
+      els.openDisclaimer.addEventListener("click", (e) => {
+        e.preventDefault();
+        track(e.currentTarget);
+        openModal("免责声明");
+      });
+
+      els.openPrivacy.addEventListener("click", (e) => {
+        e.preventDefault();
+        track(e.currentTarget);
+        openModal("隐私政策");
+      });
+
+      document.querySelectorAll('[data-event^="ad_"]').forEach(a => {
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          track(e.currentTarget);
+          toast("示例广告位：请替换链接");
+        });
+      });
+    }
+
+    init();
+  </script>
+</body>
+</html>

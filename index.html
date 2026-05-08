@@ -386,11 +386,11 @@
         <span class="badge">赞助</span>
       </div>
       <div class="ad-slot">
-        <div><b>广告位（可替换）</b></div>
-        <div class="muted">这里可放：推广文案 / 跳转链接 / 图片。建议尺寸：728×90 或自适应横幅。</div>
+        <div><b>1bgp.com 云服务器 / 物理服务器</b></div>
+        <div class="muted">售卖云服务器与物理服务器，可搭建 OpenClaw / AI Agent、推理服务与算力服务器。</div>
         <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
-          <a class="mini primary" href="#" data-event="ad_top_click">了解更多</a>
-          <a class="mini" href="#" data-event="ad_top_contact">投放咨询</a>
+          <a class="mini primary" href="https://www.1bgp.com/" target="_blank" rel="noopener noreferrer" data-event="ad_top_click">查看配置</a>
+          <a class="mini" href="https://www.1bgp.com/" target="_blank" rel="noopener noreferrer" data-event="ad_top_contact">进入官网</a>
         </div>
       </div>
     </div>
@@ -448,11 +448,11 @@
             <span class="badge">赞助</span>
           </div>
           <div class="ad-slot">
-            <div><b>广告位（可替换）</b></div>
-            <div class="muted">建议尺寸：300×250。可放图片 + 链接，或联盟推广。</div>
+            <div><b>1bgp.com 服务器上新</b></div>
+            <div class="muted">弹性云 + 独享物理机，适合长期跑任务、算力部署与业务上线。</div>
             <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
-              <a class="mini primary" href="#" data-event="ad_side_click">立即查看</a>
-              <a class="mini" href="#" data-event="ad_side_contact">合作投放</a>
+              <a class="mini primary" href="https://www.1bgp.com/" target="_blank" rel="noopener noreferrer" data-event="ad_side_click">获取报价</a>
+              <a class="mini" href="https://www.1bgp.com/" target="_blank" rel="noopener noreferrer" data-event="ad_side_contact">立即访问</a>
             </div>
           </div>
         </section>
@@ -688,11 +688,11 @@
             <span class="badge">赞助</span>
           </div>
           <div class="ad-slot" style="margin:12px">
-            <div><b>广告位（可替换）</b></div>
-            <div class="muted">这里可插入“赞助推荐”卡片：适合放联盟产品/课程/社群。</div>
+            <div><b>1bgp.com 云服务器 / 物理服务器</b></div>
+            <div class="muted">支持部署 OpenClaw / AI Agent、推理接口与算力服务；按需扩容，快速上线。</div>
             <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
-              <a class="mini primary" href="#" data-event="ad_feed_click">查看详情</a>
-              <a class="mini" href="#" data-event="ad_feed_contact">合作投放</a>
+              <a class="mini primary" href="https://www.1bgp.com/" target="_blank" rel="noopener noreferrer" data-event="ad_feed_click">查看配置</a>
+              <a class="mini" href="https://www.1bgp.com/" target="_blank" rel="noopener noreferrer" data-event="ad_feed_contact">进入官网</a>
             </div>
           </div>
         </div>
@@ -917,9 +917,12 @@
 
       document.querySelectorAll('[data-event^="ad_"]').forEach(a => {
         a.addEventListener("click", (e) => {
-          e.preventDefault();
           track(e.currentTarget);
-          toast("示例广告位：请替换链接");
+          const href = e.currentTarget.getAttribute("href");
+          if(!href || href === "#"){
+            e.preventDefault();
+            toast("请替换广告链接");
+          }
         });
       });
     }

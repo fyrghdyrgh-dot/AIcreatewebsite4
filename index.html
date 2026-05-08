@@ -33,7 +33,7 @@
       line-height:1.5;
     }
     a{color:inherit;text-decoration:none}
-    .container{max-width:1180px;margin:0 auto;padding:20px}
+    .container{max-width:1180px;margin:0 auto;padding:14px}
     .topbar{
       position:sticky;top:0;z-index:20;
       backdrop-filter: blur(10px);
@@ -75,7 +75,7 @@
       font-size:12px;color:rgba(15,23,42,.82);
     }
     .pill b{color:var(--accent2)}
-    .layout{display:grid;grid-template-columns: 1fr 320px;gap:18px;margin-top:18px}
+    .layout{display:grid;grid-template-columns: 1fr 320px;gap:18px;margin-top:12px}
     .panel{
       background: var(--panel);
       border: 1px solid var(--line);
@@ -91,13 +91,13 @@
         radial-gradient(900px 320px at 100% 0%, rgba(59,130,246,.16), transparent 55%),
         linear-gradient(135deg, rgba(124,58,237,.15), rgba(59,130,246,.10));
       box-shadow: 0 18px 60px rgba(15,23,42,.12);
-      padding: 26px 18px;
+      padding: 18px 14px;
     }
     .hero-inner{max-width: 980px; margin: 0 auto; text-align:center}
-    .hero-title{font-size:28px; letter-spacing:.2px; margin:0; font-weight:800}
-    .hero-sub{margin:10px 0 0; color: rgba(15,23,42,.70); font-size:14px}
+    .hero-title{font-size:24px; letter-spacing:.2px; margin:0; font-weight:800}
+    .hero-sub{margin:8px 0 0; color: rgba(15,23,42,.70); font-size:13.5px}
     .hero-search{
-      margin: 16px auto 0;
+      margin: 12px auto 0;
       display:flex;
       align-items:center;
       gap:10px;
@@ -122,8 +122,11 @@
       display:flex;
       gap:8px;
       justify-content:center;
-      flex-wrap:wrap;
-      margin-top: 12px;
+      flex-wrap:nowrap;
+      overflow-x:auto;
+      -webkit-overflow-scrolling: touch;
+      margin-top: 10px;
+      padding-bottom: 2px;
     }
     .chip{
       padding: 7px 10px;
@@ -380,6 +383,7 @@
       .grid{grid-template-columns: 1fr}
       .float-cta{right: 12px; bottom: 12px}
       .hero-title{font-size:22px}
+      .hero-sub{display:none}
     }
   </style>
 </head>
@@ -428,35 +432,8 @@
       </div>
     </section>
 
-    <div class="ad ad-top panel">
-      <div class="ad-label">
-        <span>顶部横幅</span>
-        <span class="badge">赞助</span>
-      </div>
-      <div class="ad-slot">
-        <div><b>1bgp.com 云服务器 / 物理服务器</b></div>
-        <div class="muted">售卖云服务器与物理服务器，可搭建 OpenClaw / AI Agent、推理服务与算力服务器。</div>
-        <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
-          <a class="mini primary" href="https://www.1bgp.com/" target="_blank" rel="noopener noreferrer" data-event="ad_top_click">查看配置</a>
-          <a class="mini" href="https://www.1bgp.com/" target="_blank" rel="noopener noreferrer" data-event="ad_top_contact">进入官网</a>
-        </div>
-      </div>
-    </div>
-
     <section class="layout">
       <section class="panel" aria-label="工具列表">
-        <div class="hero">
-          <div>
-            <h1 style="font-size:16px;margin:0">按分类浏览</h1>
-            <p style="margin:6px 0 0;color:var(--muted);font-size:13px">也可点击下方分类图标快速切换。</p>
-          </div>
-          <div class="stat" aria-label="统计">
-            <span class="pill">分类 <b id="catCount">0</b></span>
-            <span class="pill">工具 <b id="toolCount">0</b></span>
-            <span class="pill">收藏 <b id="favCount">0</b></span>
-          </div>
-        </div>
-
         <div class="tabs" id="tabs" role="tablist" aria-label="分类筛选"></div>
         <div class="cat-quick" id="catQuick" aria-label="分类图标"></div>
         <div class="grid" id="grid" aria-live="polite"></div>

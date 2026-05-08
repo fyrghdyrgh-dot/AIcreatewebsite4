@@ -27,14 +27,17 @@
     html,body{height:100%}
     body{
       margin:0;
-      background:
-        radial-gradient(1200px 600px at 20% -10%, rgba(124,58,237,.22), transparent 60%),
-        radial-gradient(900px 500px at 100% 0%, rgba(167,139,250,.14), transparent 55%),
-        radial-gradient(900px 500px at 0% 100%, rgba(59,130,246,.10), transparent 55%),
-        var(--bg);
+      background: linear-gradient(120deg, #0b0f18, #151038, #0b1222, #1a1033);
+      background-size: 300% 300%;
+      animation: bgMove 18s ease infinite;
       color:var(--text);
       font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
       line-height:1.5;
+    }
+    @keyframes bgMove{
+      0%{background-position: 0% 50%}
+      50%{background-position: 100% 50%}
+      100%{background-position: 0% 50%}
     }
     a{color:inherit;text-decoration:none}
     .container{max-width:1180px;margin:0 auto;padding:20px}
@@ -189,9 +192,9 @@
     .muted{color:var(--muted)}
     .rightcol{display:flex;flex-direction:column;gap:12px}
     .ad{
-      border:1px dashed rgba(148,163,184,.35);
+      border: 1px solid rgba(148,163,184,.18);
       border-radius: var(--radius);
-      background: rgba(11,18,34,.35);
+      background: rgba(11,18,34,.55);
       padding:12px;
     }
     .ad-top{margin:16px 0 0}
@@ -277,56 +280,6 @@
       border-color: rgba(148,163,184,.25);
       box-shadow: var(--shadow);
     }
-    .modal{
-      position: fixed; inset: 0;
-      background: rgba(2,6,23,.65);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      z-index: 80;
-      padding: 18px;
-    }
-    .modal.show{display:flex}
-    .dialog{
-      width: min(860px, 100%);
-      border-radius: 16px;
-      border: 1px solid rgba(148,163,184,.25);
-      background: rgba(15,23,42,.92);
-      box-shadow: 0 40px 90px rgba(0,0,0,.55);
-      overflow:hidden;
-    }
-    .dialog-head{
-      display:flex;align-items:center;justify-content:space-between;gap:12px;
-      padding: 14px 14px 12px;
-      border-bottom:1px solid rgba(148,163,184,.18);
-    }
-    .dialog-title{font-weight:700}
-    .dialog-body{
-      display:grid;grid-template-columns: 1.2fr .8fr;gap:14px;
-      padding: 14px;
-    }
-    .dialog p{margin:0 0 10px}
-    .qr{
-      border-radius: 14px;
-      border:1px solid rgba(148,163,184,.22);
-      background: rgba(11,18,34,.60);
-      padding: 12px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      align-items:center;
-      justify-content:center;
-      min-height: 260px;
-    }
-    .qr img{width:180px;height:180px;border-radius:12px;background:#fff}
-    .close{
-      width: 38px;height: 38px;border-radius: 999px;
-      border:1px solid rgba(148,163,184,.22);
-      background: rgba(11,18,34,.60);
-      color: rgba(226,232,240,.95);
-      cursor:pointer;
-    }
-    .kbd{font-size:11px;color:rgba(148,163,184,.9);border:1px solid rgba(148,163,184,.25);border-bottom-color:rgba(148,163,184,.35);padding:2px 6px;border-radius:6px}
     .inline-ad{
       grid-column: 1 / -1;
       border-radius: var(--radius);
@@ -340,8 +293,6 @@
     }
     @media (max-width: 860px){
       .grid{grid-template-columns: repeat(2, minmax(0, 1fr))}
-      .dialog-body{grid-template-columns: 1fr}
-      .qr{min-height:220px}
     }
     @media (max-width: 520px){
       .topbar-inner{flex-wrap:wrap}
@@ -399,8 +350,8 @@
       <section class="panel" aria-label="工具列表">
         <div class="hero">
           <div>
-            <h1>按分类快速找到合适的工具</h1>
-            <p>支持实时搜索与收藏（本地保存）。广告位已预留，适合做引流站落地页。</p>
+            <h1>AI 工具导航</h1>
+            <p>分类浏览、实时搜索、收藏常用工具。本站推荐服务器：1bgp.com（云服务器/物理机）。</p>
           </div>
           <div class="stat" aria-label="统计">
             <span class="pill">分类 <b id="catCount">0</b></span>
@@ -428,87 +379,26 @@
         <section class="panel pad">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
             <div>
-              <div style="font-weight:700">快速引流</div>
-              <div class="muted" style="font-size:12px;margin-top:4px">把 CTA 替换成你的社群/资料包</div>
+              <div style="font-weight:700">1bgp.com 服务器推荐</div>
+              <div class="muted" style="font-size:12px;margin-top:4px">云服务器 · 物理服务器 · OpenClaw/算力部署</div>
             </div>
-            <span class="badge">转化</span>
+            <span class="badge">推荐</span>
+          </div>
+          <div class="muted" style="font-size:12.5px;margin-top:10px;line-height:1.7">
+            适合：AI Agent 部署、推理接口、算力服务器、长期任务与业务上线。
           </div>
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
-            <button class="mini primary" id="ctaJoin" data-event="cta_join" type="button">加入社群</button>
-            <button class="mini" id="ctaGift" data-event="cta_gift" type="button">领取资料</button>
+            <a class="mini primary" href="https://www.1bgp.com/" target="_blank" rel="noopener noreferrer" data-event="cta_1bgp_primary">去官网选型</a>
+            <a class="mini" href="https://www.1bgp.com/" target="_blank" rel="noopener noreferrer" data-event="cta_1bgp_secondary">查看报价</a>
           </div>
-          <div class="muted" style="font-size:12px;margin-top:10px">
-            建议：在弹窗内放二维码、群规则、资料说明，并加“已添加/关闭”按钮。
-          </div>
-        </section>
-
-        <section class="ad panel">
-          <div class="ad-label">
-            <span>侧栏广告</span>
-            <span class="badge">赞助</span>
-          </div>
-          <div class="ad-slot">
-            <div><b>1bgp.com 服务器上新</b></div>
-            <div class="muted">弹性云 + 独享物理机，适合长期跑任务、算力部署与业务上线。</div>
-            <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
-              <a class="mini primary" href="https://www.1bgp.com/" target="_blank" rel="noopener noreferrer" data-event="ad_side_click">获取报价</a>
-              <a class="mini" href="https://www.1bgp.com/" target="_blank" rel="noopener noreferrer" data-event="ad_side_contact">立即访问</a>
-            </div>
-          </div>
-        </section>
-
-        <section class="panel pad">
-          <div style="font-weight:700">运营建议</div>
-          <ul style="margin:10px 0 0 18px;padding:0;color:rgba(226,232,240,.92);font-size:12.5px;line-height:1.7">
-            <li>把“分类名”改成更贴近关键词的名称（更好做搜索流量）。</li>
-            <li>把工具卡片链接换成你的联盟/跳转页（统一统计）。</li>
-            <li>把“提交工具”改成表单/加群入口，提高收录效率。</li>
-            <li>广告位尽量显式标注“赞助”，提升信任与合规性。</li>
-          </ul>
         </section>
       </aside>
     </section>
   </main>
 
   <div class="float-cta">
-    <button class="fab" id="fabMain" data-event="fab_open" type="button">
-      <span>加入社群 / 领资料</span>
-      <span class="kbd">Ctrl K</span>
-    </button>
+    <a class="fab" id="fabMain" href="https://www.1bgp.com/" target="_blank" rel="noopener noreferrer" data-event="fab_1bgp">查看 1bgp 服务器</a>
     <button class="fab secondary" id="fabTop" data-event="fab_back_top" type="button">回到顶部</button>
-  </div>
-
-  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="引流弹窗">
-    <div class="dialog">
-      <div class="dialog-head">
-        <div>
-          <div class="dialog-title" id="modalTitle">加入社群 / 领取资料</div>
-          <div class="muted" style="font-size:12px;margin-top:4px">把二维码与文案替换成你的真实内容</div>
-        </div>
-        <button class="close" id="closeModal" data-event="modal_close" type="button" aria-label="关闭">✕</button>
-      </div>
-      <div class="dialog-body">
-        <div>
-          <p style="font-weight:700;margin-bottom:8px">你将获得</p>
-          <ul style="margin:0 0 12px 18px;padding:0;color:rgba(226,232,240,.92);font-size:12.8px;line-height:1.7">
-            <li>AI 工具清单（按场景整理）</li>
-            <li>高转化提示词模板（可直接复制）</li>
-            <li>案例拆解与避坑清单</li>
-          </ul>
-          <p class="muted" style="font-size:12.5px;margin-bottom:12px">提示：建议在这里加入群规则/资料说明，提升转化质量。</p>
-          <div style="display:flex;gap:10px;flex-wrap:wrap">
-            <button class="mini primary" id="markDone" data-event="modal_done" type="button">我已获取</button>
-            <button class="mini" id="copyText" data-event="modal_copy" type="button">复制引导话术</button>
-          </div>
-        </div>
-        <div class="qr">
-          <img id="qrImg" alt="二维码占位图" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><rect width='100%25' height='100%25' fill='%23ffffff'/><rect x='16' y='16' width='188' height='188' fill='none' stroke='%23111' stroke-width='3'/><g fill='%23111' opacity='.92'><rect x='34' y='34' width='50' height='50'/><rect x='136' y='34' width='50' height='50'/><rect x='34' y='136' width='50' height='50'/><rect x='102' y='102' width='18' height='18'/><rect x='128' y='102' width='18' height='18'/><rect x='102' y='128' width='18' height='18'/><rect x='128' y='128' width='18' height='18'/><rect x='154' y='120' width='10' height='10'/><rect x='120' y='154' width='10' height='10'/><rect x='154' y='154' width='10' height='10'/></g><text x='110' y='214' text-anchor='middle' font-family='Arial' font-size='12' fill='%23555'>QR Placeholder</text></svg>" />
-          <div class="muted" style="font-size:12px;text-align:center">
-            扫码加入/领取<br/>（替换成你的真实二维码）
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -586,16 +476,9 @@
       showFavs: document.getElementById("showFavs"),
       year: document.getElementById("year"),
       toast: document.getElementById("toast"),
-      modal: document.getElementById("modal"),
-      modalTitle: document.getElementById("modalTitle"),
-      closeModal: document.getElementById("closeModal"),
       fabMain: document.getElementById("fabMain"),
       fabTop: document.getElementById("fabTop"),
-      ctaJoin: document.getElementById("ctaJoin"),
-      ctaGift: document.getElementById("ctaGift"),
       submitTool: document.getElementById("submitTool"),
-      markDone: document.getElementById("markDone"),
-      copyText: document.getElementById("copyText"),
       openDisclaimer: document.getElementById("openDisclaimer"),
       openPrivacy: document.getElementById("openPrivacy")
     };
@@ -813,17 +696,6 @@
       renderGrid();
     }
 
-    function openModal(title){
-      els.modalTitle.textContent = title;
-      els.modal.classList.add("show");
-      document.body.style.overflow = "hidden";
-    }
-
-    function closeModal(){
-      els.modal.classList.remove("show");
-      document.body.style.overflow = "";
-    }
-
     function init(){
       loadFavs();
       els.year.textContent = String(new Date().getFullYear());
@@ -853,66 +725,26 @@
         toast(state.favOnly ? "仅显示收藏" : "显示全部");
       });
 
-      function onCtaClick(btn, title){
-        btn.addEventListener("click", (e) => {
-          track(e.currentTarget);
-          openModal(title);
-        });
-      }
-      onCtaClick(els.fabMain, "加入社群 / 领取资料");
-      onCtaClick(els.ctaJoin, "加入社群");
-      onCtaClick(els.ctaGift, "领取资料");
-
       els.fabTop.addEventListener("click", (e) => {
         track(e.currentTarget);
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
 
-      els.closeModal.addEventListener("click", (e) => { track(e.currentTarget); closeModal(); });
-      els.modal.addEventListener("click", (e) => {
-        if(e.target === els.modal){ track({ dataset:{ event:"modal_backdrop" } }); closeModal(); }
-      });
-      window.addEventListener("keydown", (e) => {
-        if(e.key === "Escape" && els.modal.classList.contains("show")) closeModal();
-        if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k"){
-          e.preventDefault();
-          track(els.fabMain);
-          openModal("加入社群 / 领取资料");
-        }
-      });
-
-      els.markDone.addEventListener("click", (e) => {
-        track(e.currentTarget);
-        closeModal();
-        toast("已记录");
-      });
-
-      els.copyText.addEventListener("click", async (e) => {
-        track(e.currentTarget);
-        const text = "你好，我想加入社群/领取资料包：AI 工具清单 + 高转化提示词模板 + 案例拆解。麻烦发我获取方式。";
-        try{
-          await navigator.clipboard.writeText(text);
-          toast("引导话术已复制");
-        }catch(_){
-          toast("复制失败，请手动复制");
-        }
-      });
-
       els.submitTool.addEventListener("click", (e) => {
         track(e.currentTarget);
-        openModal("提交工具 / 商务合作");
+        window.open("https://www.1bgp.com/", "_blank", "noopener,noreferrer");
       });
 
       els.openDisclaimer.addEventListener("click", (e) => {
         e.preventDefault();
         track(e.currentTarget);
-        openModal("免责声明");
+        toast("免责声明：本站内容仅供参考，外链服务与风险由第三方承担。");
       });
 
       els.openPrivacy.addEventListener("click", (e) => {
         e.preventDefault();
         track(e.currentTarget);
-        openModal("隐私政策");
+        toast("隐私政策：收藏数据仅保存在你的浏览器本地，不会上传。");
       });
 
       document.querySelectorAll('[data-event^="ad_"]').forEach(a => {
